@@ -64,7 +64,7 @@ const { data: todos } = await useAsyncData<Todo[]>(
 
 onBeforeMount(async () => {
   const res = await $fetch.raw(
-    `https://jsonplaceholder.typicode.com/todos?_page=${page.value}&_limit=20`,
+    `/todos?_page=${page.value}&_limit=20`,
     {
       baseURL: config.public.apiBase
     }
