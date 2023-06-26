@@ -78,9 +78,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
       - name: Static HTML export with Nuxt
-        run: |
-          pnpm run generate
-          touch .output/public/.nojekyll
+        run: pnpm run generate && touch .output/public/.nojekyll
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
