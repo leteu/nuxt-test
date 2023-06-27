@@ -53,11 +53,13 @@ const { data: todos } = await useAsyncData<Todo[]>(
   () => $fetch(
     `/todos?_page=${page.value}&_limit=20`,
     {
-      baseURL: config.public.apiBase
+      baseURL: config.public.apiBase,
+      headers: {
+        'User-Agent': ''
+      }
     }
   ),
   {
-    lazy: true,
     watch: [page]
   }
 )
@@ -68,14 +70,16 @@ const { data: total } = await useAsyncData(
     const res = await $fetch.raw(
       '/todos?_page=0&_limit=0',
       {
-        baseURL: config.public.apiBase
+        baseURL: config.public.apiBase,
+        headers: {
+          'User-Agent': ''
+        }
       }
     )
 
     return Math.ceil(Number(res.headers.get('X-Total-Count')) / 20)
   },
   {
-    lazy: true,
     default: () => 0
   }
 )
