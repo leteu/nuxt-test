@@ -8,6 +8,11 @@ export default defineNuxtConfig({
     }
   },
   app: {
-    baseURL: '/nuxt-test/'
+    baseURL: '/nuxt-test/',
+  },
+  nitro: {
+    prerender: {
+      crawlLinks: true
+    }
   }
 })
