@@ -54,7 +54,7 @@ const { data: todos } = await useAsyncData<Todo[]>(
     `/todos?_page=${page.value}&_limit=20`,
     {
       baseURL: config.public.apiBase,
-      headers: useRequestHeaders(['User-Agent'])
+      headers: useRequestHeaders(['User-Agent', 'cookie'])
     }
   ),
   {
@@ -69,7 +69,7 @@ const { data: total } = await useAsyncData(
       '/todos?_page=0&_limit=0',
       {
         baseURL: config.public.apiBase,
-        headers: useRequestHeaders(['User-Agent'])
+        headers: useRequestHeaders(['User-Agent', 'cookie'])
       }
     )
 
