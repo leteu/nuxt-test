@@ -57,6 +57,7 @@ const { data: todos } = await useAsyncData<Todo[]>(
     }
   ),
   {
+    lazy: true,
     watch: [page]
   }
 )
@@ -74,6 +75,7 @@ const { data: total } = await useAsyncData(
     return Math.ceil(Number(res.headers.get('X-Total-Count')) / 20)
   },
   {
+    lazy: true,
     default: () => 0
   }
 )
