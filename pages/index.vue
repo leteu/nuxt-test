@@ -47,7 +47,6 @@ const config = useRuntimeConfig()
 const router = useRouter()
 
 const page = ref(1)
-const total = ref(0)
 
 const { data: todos } = await useAsyncData<Todo[]>(
   'todos',
@@ -62,15 +61,22 @@ const { data: todos } = await useAsyncData<Todo[]>(
   }
 )
 
-onBeforeMount(async () => {
-  const res = await $fetch.raw(
-    `/todos?_page=${page.value}&_limit=20`,
-    {
-      baseURL: config.public.apiBase
-    }
-  )
-  total.value = Math.ceil(Number(res.headers.get('X-Total-Count')) / 20)
-})
+const { data: total } = await useAsyncData(
+  'total',
+  async () => {
+    const res = await $fetch.raw(
+      '/todos?_page=0&_limit=0',
+      {
+        baseURL: config.public.apiBase
+      }
+    )
+
+    return Math.ceil(Number(res.headers.get('X-Total-Count')) / 20)
+  },
+  {
+    default: () => 0
+  }
+)
 
 const onClickPagination = (target: number | 'first' | 'prev' | 'next' | 'last') => {
   if (typeof target === 'number') {
